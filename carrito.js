@@ -1,5 +1,5 @@
 import { formatearPrecio, calcularDescuento} from "./utilidades.js"
-import { hayStock } from "./producto.js"
+import Producto from "./producto.js"
 
 class Carrito{
     constructor(usuario, items = []){
@@ -8,7 +8,7 @@ class Carrito{
     }
 
     agregar(producto, cantidad){
-        if(!hayStock(cantidad)) return "Sin stock";
+        if(!producto.hayStock(cantidad)) return "Sin stock";
 
         this.items.push({
             producto,
