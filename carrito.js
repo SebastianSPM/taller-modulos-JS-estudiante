@@ -1,19 +1,19 @@
-import { formatearPrecio, calcularDescuento} from './utilidades'
-import 
+import { formatearPrecio, calcularDescuento} from "./utilidades.js"
+import { hayStock } from "./producto.js"
 
 class Carrito{
     constructor(usuario, items = []){
         this.usuario = usuario;
-        this.items = items
+        this.items = items;
     }
 
     agregar(producto, cantidad){
-        if(!producto.hayStock(cantidad)) return "Sin stock";
+        if(!hayStock(cantidad)) return "Sin stock";
 
         this.items.push({
             producto,
             cantidad
-        })
+        });
 
         return "Producto agregado al carrito";
     }
@@ -31,7 +31,7 @@ class Carrito{
     total(){
         const subtotal = this.subtotal();
 
-        if(this.usuario.esvip){
+        if(this.usuario && this.usuario.esvip){
             return calcularDescuento(subtotal, 10);
         }
 
@@ -39,9 +39,17 @@ class Carrito{
     }
 
     recibo(){
-        return `
+        let textoRecibo = `Hola, ${this.usuario.nombre}\n`;
 
-        `
+        for(let i of this.items){
+            const valorFormateado = formatearPrecio(i.producto.precio * i.cantidad);
+            textoRecibo += `${i.producto.nombre} x ${i.cantidad}: ${valorFormateado}\n`;
+        }
+
+        textoRecibo += `------------------\n`;
+        textoRecibo += `Total: ${formatearPrecio(this.total())}`;
+
+        return textoRecibo;
     }
 }
 

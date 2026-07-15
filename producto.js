@@ -7,7 +7,7 @@ class Producto{
     }
 
     hayStock(cantidad){
-        if(cantidad > stock) return false
+        if(cantidad > this.stock) return false
         return true
     }
 
@@ -17,7 +17,7 @@ class Producto{
             prcio: ${this.precio}
             categoria: ${this.categoria}
             stock: ${this.stock}
-        `
+        `;
     }
 }
 
