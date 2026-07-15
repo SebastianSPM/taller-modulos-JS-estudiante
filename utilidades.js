@@ -7,8 +7,7 @@ const esEmailValido = (email) => {
 }
 
 const calcularDescuento = (precio, porcentaje) => {
- const descuento = precio * (porcentaje / 100);
- return precio - descuento;
+ return precio - (precio * (porcentaje / 100));
 }
 
 export {
